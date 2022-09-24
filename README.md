@@ -8,7 +8,7 @@
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 ## **Data Set Düzenlenmesi**
 
 #### [visiosoft](http://www.visiosoft.com.tr) tarafından toplam 482 tane data hazırlandı.Bu data Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) adlı iki obje içeriyor .datadaki verilerden bazılırı  geniş açılı ve yüksek çözünürlükteki verilerdi.
