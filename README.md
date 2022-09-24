@@ -2,13 +2,12 @@
 
 ###  Yolo algoritmasi kullanılarak geliştirilmiştirdiğim Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) objelerini tanıyan algoritmayı tanıtacağım
 
-
+<div   height="600px">
 <img src="README/293.jpg" align="left" width="48%"  height="500px"> </img>
 <img src="README/288.jpg" align="right" width="48%"  height="500px" > </img>
+</div>
 
 
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 ## **Data Set Düzenlenmesi**
 
 #### [visiosoft](http://www.visiosoft.com.tr) tarafından toplam 482 tane data hazırlandı.Bu data Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) adlı iki obje içeriyor .datadaki verilerden bazıları  geniş açılı ve yüksek çözünürlükteki verilerdi.
