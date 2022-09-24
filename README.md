@@ -416,17 +416,93 @@ os.chdir("..")
 !wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137
 ```
 #### Bu adımda önceden eğitilmiş <font  color="pink "> yolov4 </font> için kullanılmış deeplearning katmanları ağırlıklarını indiriyoruz. Bu adımı uygulamak zorunda değiliz ama eğitime bu ağırlıklarla başlamak eğittiğimiz modelin daha doğru çalışmasına ve eğitim süresini kısaltmaya yardımcı olacaktır.
+<br><br>
+
+### **ADIM 7: KENDİ NESNE TANIYICIMIZI EĞİTELİM**
+
+
 
 ```PowerShell
+function ClickConnect(){
+console.log("Working");
+document.querySelector("colab-toolbar-button#connect").click()
+}
+setInterval(ClickConnect,60000)
+
 ```
+#### Eğitimimiz uzun süreceği için google collab bizi serverdan atabilir. Bunun önüne geçmek için aktif olduğumuzu bir şekile bildirmeliyiz.
+
+#### Bunun için de sayfanın üst tarafına sağ tıklayıp "ögeyi denetle" veya "incele" seçeneğiniz seçip, çıkan pencereden "console"'a tıklayıp açılan komut satırına aşağıdaki kodu ekleyip enter tuşuna basarsak bu kod bizim 10 dakikada bir connect butonuna basarak bizim aktif kalmamızı sağlayacaktır.
+
+<br>
+
 ```PowerShell
+!./darknet detector train data/obj.data cfg/yolov4-obj.cfg  yolov4.conv.137 -dont_show -map
 ```
+
+
+#### Eğitimimizin süresi veri setinizdeki fotoğraf sayısı, fotoğrafların kalitesi, eğitim yaptığınız nesne sayısı gibi faktörlere göre değişebilir. Modelimizin doğruluğu için loss değerimiz önemlidir. Loss değerimiz ne kadar düşük olursa modelimiz o kadar doğru çalışır. Modelimizi loss değeri azalmayı durdurana kadar çalıştırıp veri setimize göre mümkün olan en doğru modeli eğitebiliriz.
+<br>
+
 ```PowerShell
+
+# eğitimimize ait grafiğimiz.
+!cp chart.png /mydrive/yolov4/chart5.png
+imShow('chart5.png')
+
 ```
+
+#### Yukarıdaki kodla modelimizi eğittikten sonra eğitim sırasında loss değerimizin nasıl değiştiğine dair bir grafik görebiliriz.
+
+<br>
+
 ```PowerShell
+# eğitime kaldığımız yerden devam edebiliriz.
+!./darknet detector train data/obj.data cfg/yolov4-obj.cfg backup/yolov4-obj_last.weights -dont_show
 ```
+
+#### Eğittiğimiz modeli tekrar eğitmek istersek yukarıdaki kod ile kaldığımız yerden devam edebiliriz
+
+<br><br>
+
+
+### **ADIM 7: EĞİTTİĞİMİZ MODELİMİZİ KULLANALIM**
+
+<br>
+
+#### Eğitimimiz tamamlandı, şimdi istediğimiz fotoğraflar üzerinde tanıma yapabiliriz.
+<br>
+
 ```PowerShell
+!./darknet detector map data/obj.data cfg/yolov4-obj.cfg  /content/gdrive/MyDrive/yolov4/backup/yolov4-obj_best.weights
 ```
+#### yukarıdaki kod ile önceden eğittiğimiz modeli algoritmanın içine aktarıyoruz
+
+<br><br>
+
+
+## **Step 8: Modelimizi Çalıştıralım**
+
+
+
+
 ```PowerShell
+# need to set our custom cfg to test mode
+%cd cfg
+!sed -i 's/batch=64/batch=1/' yolov4-obj.cfg
+!sed -i 's/subdivisions=16/subdivisions=1/' yolov4-obj.cfg
+%cd ..
 ```
-<font  color="pink "> yolov4 </font>
+
+
+#### Modellimizi test etmek için parametrelerimizi ayarlıyoruz.
+<br>
+
+```PowerShell
+# run your custom detector with this command (upload an image to your google drive to test, thresh flag sets accuracy that detection must be in order to show it)
+!./darknet detector test data/obj.data cfg/yolov4-obj.cfg   /content/darknet/data/test_veri/119.jpg -thresh 0.3
+imShow('predictions.jpg')
+
+```
+
+#### Modelimize denemek için veri yolunu modele verip test işlemini yerine getiriyoruz .
