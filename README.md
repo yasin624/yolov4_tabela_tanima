@@ -31,7 +31,7 @@
 
 #### Yukarıda bazı aykırı verisetlerinden örnekler verilmiştir.
 
-#### Bu veriler <font  color="aqua "> x1 y1 w h </font> formatı ile etiketlenmişti . Verileri eğitmek için gereken yolo modeli format olarak  <font  color="aqua "> x y  w h </font>  sıralaması ile ilerliyordu verilerin uygun formatlanması için python dilinden  yararlandım .
+#### Bu veriler <font  color="pink "> **x1 y1 w h**</font> formatı ile etiketlenmişti . Verileri eğitmek için gereken yolo modeli format olarak  <font  color="pink "> **x y  w h**</font>  sıralaması ile ilerliyordu verilerin uygun formatlanması için python dilinden  yararlandım .
 <br/>
 
 ```PowerShell
@@ -45,7 +45,7 @@ from tqdm import tqdm as tqdm
 data = json.load(open('annotations/annotation.json')) # load jeson data into code
 ```
 
-#### Veriler <font  color="pink "> json</font> formatı ile verilmişti verileri düzeltmek için  <font  color="pink "> json</font> kütüphanesinden yararlandım. Verileri okumak için  <font  color="pink "> data = json.load(open('annotations/annotation.json'))</font> kodundan yararlandım
+#### Veriler <font  color="pink "> **json**</font> formatı ile verilmişti verileri düzeltmek için  <font  color="pink "> **json**</font> kütüphanesinden yararlandım. Verileri okumak için  <font  color="pink "> **data = json.load(open('annotations/annotation.json'))**</font> kodundan yararlandım
 <br/>
 
 ```PowerShell
@@ -70,7 +70,7 @@ def format_label(data,image_about,image_path):
 images=format_label(x,segment,"images")
 ```
 
-#### Verileri yolo formatına çevirmeden önce etiket içerisini inceleme ve gerekli etiketleri almak için <font  color="pink ">format=[file_name,w,h,category,boxs] </font> olarak  yeniden formatladım.
+#### Verileri yolo formatına çevirmeden önce etiket içerisini inceleme ve gerekli etiketleri almak için <font  color="pink ">**format=[file_name,w,h,category,boxs]**</font> olarak  yeniden formatladım.
 
 
 <br/>
@@ -91,7 +91,7 @@ images[:,4]=[x1_y1_convert(i) for i in images[:,4]]
 
 ```
 
-#### Veriler yetersiz kalabileceğinden verileri çoğaltmak için her bir resme kırpma uyguladım . Veri seti  üzerinden kırpma  işlemini kullanmak için obje konumunu belirleyen etiketleri  <font  color="pink "> boxx = x1 y1 x2 y2 </font>  olarak tekrar formatladım
+#### Veriler yetersiz kalabileceğinden verileri çoğaltmak için her bir resme kırpma uyguladım . Veri seti  üzerinden kırpma  işlemini kullanmak için obje konumunu belirleyen etiketleri  <font  color="pink "> **boxx = x1 y1 x2 y2**</font>  olarak tekrar formatladım
 
 <br/>
 
@@ -117,7 +117,7 @@ def resim_kırpma(img,img_box=("x1","x2")):
 
 ```
 
-#### Resim dosyalarını  <font  color="pink "> resim_kırpma() </font> fonksiyonu ile resimleri ortadan ikiye ayırdım. Bu sayede verileri bozmadan ,ayrıntıları fazla kaçırmadan objenin bulunduğu bölgeyi aldım.
+#### Resim dosyalarını  <font  color="pink "> **resim_kırpma()**</font> fonksiyonu ile resimleri ortadan ikiye ayırdım. Bu sayede verileri bozmadan ,ayrıntıları fazla kaçırmadan objenin bulunduğu bölgeyi aldım.
 
 
 <br/>
@@ -137,7 +137,7 @@ def save_image(img_label,s,test=False):
     save_for_txt(img_label)
 
 ```
-#### Son olarak kırpılmış verileri kaydetmek için <font  color="pink "> save_image() </font> fonksiyonundan yararlandım.
+#### Son olarak kırpılmış verileri kaydetmek için <font  color="pink "> **save_image()**</font> fonksiyonundan yararlandım.
 
 
 <br/>
@@ -162,7 +162,7 @@ def yolov_format(image_size=("H","W"),boxxes=[("x1","y1"),("x2","y2")]):
 
 ```
 
-#### Etiketleri kaydetme den önce boxx değerlerini <font  color="pink "> x y w h </font> formatına dönuştürmek için <font  color="pink "> yolov_format() </font> fonksiyonundan  yararlandım.Veriler yolo modeline  aktarılmaya hazır hale getirdim.
+#### Etiketleri kaydetme den önce boxx değerlerini <font  color="pink "> **x y w h**</font> formatına dönuştürmek için <font  color="pink "> **yolov_format()**</font> fonksiyonundan  yararlandım.Veriler yolo modeline  aktarılmaya hazır hale getirdim.
 
 <br/>
 
@@ -175,7 +175,7 @@ def shuffle(array_num,shufle_num):
     return array
 
 ```
-#### Modelin verimliliğini artırmak için veri setini karıştırmak için etiketleri  <font  color="pink "> shuffle() </font> foksiyonundan geçirdim.
+#### Modelin verimliliğini artırmak için veri setini karıştırmak için etiketleri  <font  color="pink "> **shuffle() **</font> foksiyonundan geçirdim.
 
 <br/>
 
@@ -199,7 +199,7 @@ def save_for_txt(img_label):
 
 # **YOLOV4 NESNE TANIMA (OBJECT DETECTİON)**
 
-### Veri setimi  <font  color="pink "> yolov4 </font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi alttaki sırayla eğittim.
+### Veri setimi  <font  color="pink "> **yolov4**</font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi alttaki sırayla eğittim.
 <br/><br/>
 
 - ## **ADIM 1: DARKNET KLONLAMA VE KURULUMU**
@@ -224,7 +224,7 @@ def save_for_txt(img_label):
 
 ```
 
-#### yukardaki adımlarla sırasıyla <font  color="pink "> darknet </font> kıtaplağını kodun içerisine dahil ediyoruz. Modelimizin GPU ve Opencv kütüphanelerini kulanacağını söylüyoruz ve make ile modelimizi derliyoruz.
+#### yukardaki adımlarla sırasıyla <font  color="pink "> **darknet**</font> kıtaplağını kodun içerisine dahil ediyoruz. Modelimizin GPU ve Opencv kütüphanelerini kulanacağını söylüyoruz ve make ile modelimizi derliyoruz.
 
 <br/><br/>
 
@@ -316,7 +316,7 @@ drive.mount('/content/gdrive')
 !cp /mydrive/yolov4/yolov4-obj.cfg ./cfg
 
 ```
-#### yolov konfigrasyon dosyası olan <font  color="pink "> yolov4-obj.cfg </font> dosyasını düzenlemek için driver'i mize yükleyyip sırası ile şu değişiklikleri yapıyoruz;
+#### yolov konfigrasyon dosyası olan <font  color="pink "> **yolov4-obj.cfg**</font> dosyasını düzenlemek için driver'i mize yükleyyip sırası ile şu değişiklikleri yapıyoruz;
 
 
 - (Burada verilen değerler bu değişkenlerin önerilen değerleridir.)
@@ -340,7 +340,7 @@ drive.mount('/content/gdrive')
 !cp /mydrive/yolov4/obj.data  ./data
 
 ```
-#### <font  color="pink "> obj.data </font> ve <font  color="pink "> obj.name </font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz.
+#### <font  color="pink "> **obj.data**</font> ve <font  color="pink "> **obj.name**</font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz.
 <br>
 - *obj.data dosyamızın içeriği*;
 
@@ -382,8 +382,8 @@ is_yeri_tabelasi
 
 ```
 
-#### <font  color="pink "> generate_train.py </font> ve <font  color="pink "> generate_test.py </font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz. Bunlar bize bellek yönetiminde avantaj sağlayacak dosyalardır. Verilerimizi belirli bir sıra içerisinde modelimize verecek olan dosyalarımızdır.
-#### Bunları içeri aktardıktan sonra çalıştıracağız ve bize <font  color="pink "> train.txt </font> ve <font  color="pink "> test.txt</font> adlı iki dosya oluşturacaklardır.
+#### <font  color="pink "> **generate_train.py**</font> ve <font  color="pink "> **generate_test.py**</font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz. Bunlar bize bellek yönetiminde avantaj sağlayacak dosyalardır. Verilerimizi belirli bir sıra içerisinde modelimize verecek olan dosyalarımızdır.
+#### Bunları içeri aktardıktan sonra çalıştıracağız ve bize <font  color="pink "> **train.txt**</font> ve <font  color="pink "> **test.txt**</font> adlı iki dosya oluşturacaklardır.
 <br>
 
 - *generate_train.py dosyamızın içeriği*;
@@ -437,7 +437,7 @@ os.chdir("..")
 ```PowerShell
 !wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137
 ```
-#### Bu adımda önceden eğitilmiş <font  color="pink "> yolov4 </font> için kullanılmış deeplearning katmanları ağırlıklarını indiriyoruz. Bu adımı uygulamak zorunda değiliz ama eğitime bu ağırlıklarla başlamak eğittiğimiz modelin daha doğru çalışmasına ve eğitim süresini kısaltmaya yardımcı olacaktır.
+#### Bu adımda önceden eğitilmiş <font  color="pink "> **yolov4**</font> için kullanılmış deeplearning katmanları ağırlıklarını indiriyoruz. Bu adımı uygulamak zorunda değiliz ama eğitime bu ağırlıklarla başlamak eğittiğimiz modelin daha doğru çalışmasına ve eğitim süresini kısaltmaya yardımcı olacaktır.
 <br><br>
 
 ### **ADIM 7: KENDİ NESNE TANIYICIMIZI EĞİTELİM**
