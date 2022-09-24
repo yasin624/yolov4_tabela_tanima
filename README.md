@@ -175,4 +175,258 @@ def save_for_txt(img_label):
 <br/><br/><br/>
 
 
-# **YOLOV4 Model Eğitimi**
+# **YOLOV4 NESNE TANIMA (OBJECT DETECTİON)**
+
+### Veri setimi  <font  color="pink "> yolov4 </font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi altaki sırayla eğittim.
+<br/><br/>
+
+- ## **ADIM 1: DARKNET KLONLAMA VE KURULUMU**
+
+```PowerShell
+# clone darknet repo
+!git clone https://github.com/AlexeyAB/darknet
+
+# change makefile to have GPU and OPENCV enabled
+
+%cd darknet
+!sed -i 's/OPENCV=0/OPENCV=1/' Makefile
+!sed -i 's/GPU=0/GPU=1/' Makefile
+!sed -i 's/CUDNN=0/CUDNN=1/' Makefile
+!sed -i 's/CUDNN_HALF=0/CUDNN_HALF=1/' Makefile
+
+# Cihazdaki GPU bilgisi
+!nvidia-smi
+
+;# make darknet (builds darknet so that you can then use the darknet executable file to run or train object detectors)
+!make
+
+```
+
+#### yukardaki adımlarla sırasıyla <font  color="pink "> darknet </font> kıtaplağını kodun içerisine dahil ediyoruz. Modelimizin GPU ve Opencv kütüphanelerini kulanacağını söylüyoruz ve make ile modelimizi derliyoruz.
+
+<br/><br/>
+
+## **ADIM 2: YARDIMCI FONKSİYONLARIN TANIMLANMASI**
+
+
+```PowerShell
+# define helper functions
+def imShow(path):
+  import cv2
+  import matplotlib.pyplot as plt
+  %matplotlib inline
+
+  image = cv2.imread(path)
+  height, width = image.shape[:2]
+  resized_image = cv2.resize(image,(3*width, 3*height), interpolation = cv2.INTER_CUBIC)
+
+  fig = plt.gcf()
+  fig.set_size_inches(18, 10)
+  plt.axis("off")
+  plt.imshow(cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB))
+  plt.show()
+
+# use this to upload files
+def upload():
+  from google.colab import files
+  uploaded = files.upload()
+  for name, data in uploaded.items():
+    with open(name, 'wb') as f:
+      f.write(data)
+      print ('saved file', name)
+
+# use this to download a file
+def download(path):
+  from google.colab import files
+  files.download(path)
+```
+
+#### Yukarıdaki kodlar sayesinde model eğitildikten sonra istediğimiz veri üzerinden tahmin işlevimizi yapmak için verilerimizi okuma ve bastırma işlevlerini yerine getiren kodlar vardır.
+
+<br><br>
+
+##  **ADIM 3: HAZIRLAMIŞ OLDUĞUMUZ VERİ SETİNİ YÜKLEME**
+
+```PowerShell
+%cd ..
+from google.colab import drive
+drive.mount('/content/gdrive')
+```
+#### Google driver dosyalarımıza erişim için bağlantı sağlayan kodları içeri aktarıyoruz.
+<br>
+
+```PowerShell
+#  verilerimizin bulunduğu klasörü  kısaltma olarak mydrive olarak ayarlıyoruz
+!ln -s /content/gdrive/My\ Drive/ /mydrive
+!ls /mydrive
+
+
+#  konumumuzu darknet olarak değiştiriyoruz
+%cd /content/darknet
+# verilerin bulunduğu kalasör içindeki dosyaları lısteliyoruz
+!ls /mydrive/yolov4
+
+
+# verilerimizi darknet kütüphanesine aktarıyoruz
+!cp /mydrive/yolov4/hazir_veri.rar ../
+!cp /mydrive/yolov4/test_veri.rar ../
+
+
+# rar çimdeki verilerimizi unrar aracı ile rar  dan çıkarıyoruz
+!unrar x ../hazir_veri.rar -d data/
+!unrar x ../test_veri.rar -d data/
+
+```
+#### Veri dosyalarımızı darknet ağının içerisine aktarmak için gereken koları çalıştırıyoruz.
+
+<br><br>
+
+### **ADIM 5: EĞİTİM İÇİN GEREKLİ DOSYALARI HAZIRLAYALIM**
+
+
+
+```PowerShell
+# yolov konfigrasyon dosyasını drayvırımıza kopyalıyoruz
+!cp cfg/yolov4-custom.cfg /mydrive/yolov4/yolov4-obj.cfg
+
+
+# yolov konfigrasyon dosyamızı tekrar darknete atrarıyoruz
+!cp /mydrive/yolov4/yolov4-obj.cfg ./cfg
+
+```
+#### yolov konfigrasyon dosyası olan <font  color="pink "> yolov4-obj.cfg </font> dosyasını düzenlemek için driver'i mize yükleyyip sırası ile şu değişiklikleri yapıyoruz;
+
+
+- (Burada verilen değerler bu değişkenlerin önerilen değerleridir.)
+- learning rate değerini 0.00321 olarak değiştiriyoruz
+
+- batch = 64 ve subdivision 16.
+
+- max_batches değerini (2000 * eğitilen sınıf sayısı) değerine eşitliyoruz.
+
+- steps değerlerini (%80 of max_batches) , (%90 of max_batches) yapıyoruz.
+
+- [yolo] başlığı altındaki classes değerlerini eğitim yaptığımız sınıf sayısı ile değiştiriyoruz.
+
+- filters değişkenlerini de (eğitim yapacağımız sınıf sayısı + 5 )*3 değerine eşitliyoruz
+
+<br>
+
+```PowerShell
+# obj.name ve obj.data dosyalarını içeri aktar
+!cp /mydrive/yolov4/obj.names ./data
+!cp /mydrive/yolov4/obj.data  ./data
+
+```
+#### <font  color="pink "> obj.data </font> ve <font  color="pink "> obj.name </font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz.
+<br>
+- *obj.data dosyamızın içeriği*;
+
+
+```PowerShell
+classes = 2
+train = data/train.txt
+valid = data/test.txt
+names = data/obj.names
+backup = /mydrive
+```
+
+#### şeklinde ve;
+<br>
+
+- *obj.name dosyamızın içeriği;*
+
+
+```PowerShell
+elektrik_tabelasi
+is_yeri_tabelasi
+```
+#### şeklinde düzenlenecek
+<br><br>
+
+
+```PowerShell
+
+# verileri modele sırayla göndermek ve belek yönetimi için generatör dosyalarımızı oluşturuyotuz
+!cp /mydrive/yolov4/generate_train.py ./
+!cp /mydrive/yolov4/generate_test.py ./
+
+
+!python generate_train.py
+!python generate_test.py
+
+# darknet/data klasörüne bakıp dosyaların yüklendiğinden emin oluyoruz
+!ls data/
+
+```
+
+#### <font  color="pink "> generate_train.py </font> ve <font  color="pink "> generate_test.py </font> dosyalarımızı driver'ımızda oluşturup bunları darknete aktarıyoruz. Bunlar bize bellek yönetiminde avantaj sağlayacak dosyalardır. Verilerimizi belirli bir sıra içerisinde modelimize verecek olan dosyalarımızdır.
+#### Bunları içeri aktardıktan sonra çalıştıracağız ve bize <font  color="pink "> train.txt </font> ve <font  color="pink "> test.txt</font> adlı iki dosya oluşturacaklardır.
+<br>
+
+- *generate_train.py dosyamızın içeriği*;
+
+
+```PowerShell
+import os
+image_files = []
+os.chdir(os.path.join("data", "hazir_veri"))
+for filename in os.listdir(os.getcwd()):
+    if filename.endswith(".jpg"):
+        image_files.append("data/hazir_veri/" + filename)
+os.chdir("..")
+with open("train.txt", "w") as outfile:
+    for image in image_files:
+        outfile.write(image)
+        outfile.write("\n")
+    outfile.close()
+os.chdir("..")
+```
+
+#### şeklinde ve;
+<br>
+
+- *generate_test.py  dosyamızın içeriği;*
+
+
+```PowerShell
+import os
+
+image_files = []
+os.chdir(os.path.join("data", "test_veri"))
+for filename in os.listdir(os.getcwd()):
+    if filename.endswith(".jpg"):
+        image_files.append("data/test_veri/" + filename)
+os.chdir("..")
+with open("test.txt", "w") as outfile:
+    for image in image_files:
+        outfile.write(image)
+        outfile.write("\n")
+    outfile.close()
+os.chdir("..")
+```
+#### şeklinde düzenlenecek
+<br><br>
+
+
+### **ADIM 6: ÖNCEDEN EĞİTİLMİŞ CONVOLUTİONAL KATMANLARIN AĞIRLIKLARINI İNDİRME**
+
+
+```PowerShell
+!wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137
+```
+#### Bu adımda önceden eğitilmiş <font  color="pink "> yolov4 </font> için kullanılmış deeplearning katmanları ağırlıklarını indiriyoruz. Bu adımı uygulamak zorunda değiliz ama eğitime bu ağırlıklarla başlamak eğittiğimiz modelin daha doğru çalışmasına ve eğitim süresini kısaltmaya yardımcı olacaktır.
+
+```PowerShell
+```
+```PowerShell
+```
+```PowerShell
+```
+```PowerShell
+```
+```PowerShell
+```
+```PowerShell
+```
+<font  color="pink "> yolov4 </font>
