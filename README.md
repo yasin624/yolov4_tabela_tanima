@@ -6,9 +6,8 @@
 <img src="README/293.jpg" align="left" width="48%"  height="500px"> </img>
 <img src="README/288.jpg" align="right" width="48%"  height="500px" > </img>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
----
+
 <br/><br/>
 
 ## **Data Set Düzenlenmesi**
