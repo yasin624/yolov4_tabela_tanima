@@ -11,6 +11,26 @@
 ## **Data Set Düzenlenmesi**
 
 #### [visiosoft](http://www.visiosoft.com.tr) tarafından toplam 482 tane data hazırlandı.Bu data Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) adlı iki obje içeriyor .datadaki verilerden bazıları  geniş açılı ve yüksek çözünürlükteki verilerdi.
+<br>
+
+#### Verilen veri setleri içerisinde bakıldığında **aykırı verilerin** olduğunu gözlemlendi. **Aykırı verisetlerini** verisetinden temizleyerek daha düzgün bir veri seti oluşturdum. Veriler içerisinde yaklaşık **% 20 - % 30** oranında yanış etiketlenmiş veya hatalı etiketlemeler vardı bunlar giderilerek daha stabil bir veri seti oluşturuldu.
+
+<div   height="600px">
+<img src="README/hata1.jpg" align="center" width="32%"  height="300px"> </img>
+<img src="README/hata2.jpg" align="center" width="32%"  height="300px" > </img>
+<img src="README/hata3.jpg" align="center" width="32%"  height="300px"> </img>
+<br>
+<img src="README/hata4.jpg" align="center" width="32%"  height="300px" > </img>
+<img src="README/hata5.jpg" align="center" width="32%"  height="300px"> </img>
+<img src="README/hata6.jpg" align="center" width="32%"  height="300px" > </img>
+</div>
+
+
+
+
+
+#### Yukarıda bazı aykırı verisetlerinden örnekler verilmiştir.
+
 #### Bu veriler <font  color="aqua "> x1 y1 w h </font> formatı ile etiketlenmişti . Verileri eğitmek için gereken yolo modeli format olarak  <font  color="aqua "> x y  w h </font>  sıralaması ile ilerliyordu verilerin uygun formatlanması için python dilinden  yararlandım .
 <br/>
 
