@@ -11,8 +11,8 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 ## **Data Set Düzenlenmesi**
 
-#### [visiosoft](http://www.visiosoft.com.tr) tarafından toplam 482 tane data hazırlandı.Bu data Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) adlı iki obje içeriyor .datadaki verilerden bazılırı  geniş açılı ve yüksek çözünürlükteki verilerdi.
-#### Bu veriler <font  color="aqua "> x1 y1 w h </font> formatı ile etiketlenmişti . Verileri eyitmek için gereken yolo modeli forma olarak  <font  color="aqua "> x y  w h </font>  sıralaması ile ilerliyordu verilerin uygun formatlanması için python dilinden  yararlandım .
+#### [visiosoft](http://www.visiosoft.com.tr) tarafından toplam 482 tane data hazırlandı.Bu data Utility Pole Information Plate (elektrik direği bilgi tabelası ) ve SignStore (dükkan tabelası) adlı iki obje içeriyor .datadaki verilerden bazıları  geniş açılı ve yüksek çözünürlükteki verilerdi.
+#### Bu veriler <font  color="aqua "> x1 y1 w h </font> formatı ile etiketlenmişti . Verileri eğitmek için gereken yolo modeli format olarak  <font  color="aqua "> x y  w h </font>  sıralaması ile ilerliyordu verilerin uygun formatlanması için python dilinden  yararlandım .
 <br/>
 
 ```PowerShell
@@ -26,7 +26,7 @@ from tqdm import tqdm as tqdm
 data = json.load(open('annotations/annotation.json')) # load jeson data into code
 ```
 
-#### Veriler <font  color="pink "> json</font> formatı ile verilmişti verileri buzeltmek için  <font  color="pink "> json</font> kütüphanesinden yararlandım. Verileri okumak için  <font  color="pink "> data = json.load(open('annotations/annotation.json'))</font> kodundan yararlandım
+#### Veriler <font  color="pink "> json</font> formatı ile verilmişti verileri düzeltmek için  <font  color="pink "> json</font> kütüphanesinden yararlandım. Verileri okumak için  <font  color="pink "> data = json.load(open('annotations/annotation.json'))</font> kodundan yararlandım
 <br/>
 
 ```PowerShell
@@ -72,7 +72,7 @@ images[:,4]=[x1_y1_convert(i) for i in images[:,4]]
 
 ```
 
-#### Veriler yetersiz kalabileceğinden verileri çoğaltmak için her bir resime kırpma uyguladım . Veri seti  üzerinden kırpma  işlemini kulanmak için obje konumunu belirleyen etiketleri  <font  color="pink "> boxx = x1 y1 x2 y2 </font>  olarak tekrar formatladım
+#### Veriler yetersiz kalabileceğinden verileri çoğaltmak için her bir resme kırpma uyguladım . Veri seti  üzerinden kırpma  işlemini kullanmak için obje konumunu belirleyen etiketleri  <font  color="pink "> boxx = x1 y1 x2 y2 </font>  olarak tekrar formatladım
 
 <br/>
 
@@ -118,7 +118,7 @@ def save_image(img_label,s,test=False):
     save_for_txt(img_label)
 
 ```
-#### Son olarak kırpılmış verileri kaydetmek için <font  color="pink "> save_image() </font> fonksiyonundan yararlanıldım.
+#### Son olarak kırpılmış verileri kaydetmek için <font  color="pink "> save_image() </font> fonksiyonundan yararlandım.
 
 
 <br/>
@@ -180,7 +180,7 @@ def save_for_txt(img_label):
 
 # **YOLOV4 NESNE TANIMA (OBJECT DETECTİON)**
 
-### Veri setimi  <font  color="pink "> yolov4 </font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi altaki sırayla eğittim.
+### Veri setimi  <font  color="pink "> yolov4 </font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi alttaki sırayla eğittim.
 <br/><br/>
 
 - ## **ADIM 1: DARKNET KLONLAMA VE KURULUMU**
