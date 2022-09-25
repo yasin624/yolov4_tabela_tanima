@@ -204,7 +204,7 @@ def save_for_txt(img_label):
 
 
 <div >
-    
+
 <img src="https://user-images.githubusercontent.com/4096485/112776361-281d8380-9048-11eb-8083-8728b12dcd55.png" > </img>
 
 #### **AP50:95 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2011.08036**
@@ -547,3 +547,52 @@ imShow('predictions.jpg')
 ```
 
 #### Modelimize denemek için veri yolunu modele verip test işlemini yerine getiriyoruz .
+
+
+
+***
+<br>
+<br>
+
+
+
+## **Modelden eldığımız doğruluk ve hata değerlerimiz**
+#
+
+
+
+<div >
+
+<img src="README/loss1.jpg" > </img>
+
+----
+
+<img src="README/accuary.jpg
+"  > </img>
+
+#### **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
+
+</div>
+
+
+#### Model **2500 döngüden** sonra bu değerlere ulaştık. Verilerin azlığı,model eyitim süresi  ve etiketlemedeki hatalardan dolayı model doğruluğu beklenildiğinden daha az çıkmıştır.
+
+<br>
+
+## **Modeli Test Verileri Üzerindeki Etkileri**
+***
+
+<div >
+
+<img src="README/hata1.jpg" > </img>
+
+
+#### **AP50:95 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2011.08036**
+
+----
+
+<img src="README/hata4.jpg"  > </img>
+
+#### **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
+
+</div>
