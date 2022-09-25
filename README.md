@@ -202,6 +202,20 @@ def save_for_txt(img_label):
 ### Veri setimi  <font  color="pink "> **yolov4**</font> modeli kulanarak eğittim. Yolov4'ü seçmemin asıl nedeni stabilite açısından yolov3 ten daha iyi olması. Model eğitimimi alttaki sırayla eğittim.
 <br/><br/>
 
+
+<div >
+<img src="https://user-images.githubusercontent.com/4096485/112776361-281d8380-9048-11eb-8083-8728b12dcd55.png" > </img>
+## **AP50:95 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2011.08036**
+----
+<img src="https://user-images.githubusercontent.com/4096485/82835867-f1c62380-9ecd-11ea-9134-1598ed2abc4b.png"  > </img>
+## **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
+
+</div>
+
+<br><br>
+
+
+
 - ## **ADIM 1: DARKNET KLONLAMA VE KURULUMU**
 
 ```PowerShell
