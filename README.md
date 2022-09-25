@@ -567,10 +567,8 @@ imShow('predictions.jpg')
 
 ----
 
-<img src="README/accuary.jpg
-"  > </img>
+<img src="README/accuary.jpg"> </img>
 
-#### **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
 
 </div>
 
