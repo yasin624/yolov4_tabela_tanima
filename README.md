@@ -563,14 +563,14 @@ imShow('predictions.jpg')
 
 <div >
 
-<img src="README/loss1.jpg" > </img>
+<img src="README/loss2.png " > </img>
+
 
 ----
 
 <img src="README/accuary.jpg
 "  > </img>
 
-#### **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
 
 </div>
 
@@ -584,15 +584,13 @@ imShow('predictions.jpg')
 
 <div >
 
-<img src="README/hata1.jpg" > </img>
+<img src="README/test1.jpg" > </img>
 
-
-#### **AP50:95 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2011.08036**
 
 ----
 
-<img src="README/hata4.jpg"  > </img>
+<img src="README/test2.jpg"  > </img>
 
-#### **AP50:95 / AP50 - FPS (Tesla V100) Paper: https://arxiv.org/abs/2004.10934**
+#### **Eğitilmiş model dosyası için [Buraya](README/model) tiklayınız**
 
 </div>
