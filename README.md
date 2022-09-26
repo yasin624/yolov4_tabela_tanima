@@ -568,8 +568,7 @@ imShow('predictions.jpg')
 
 ----
 
-<img src="README/accuary.jpg
-"  > </img>
+<img src="README/accuary.jpg"> </img>
 
 
 </div>
