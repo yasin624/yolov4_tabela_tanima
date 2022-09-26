@@ -590,6 +590,6 @@ imShow('predictions.jpg')
 
 <img src="README/test2.jpg"  > </img>
 
-#### **Eğitilmiş model dosyası için [Buraya](README/model) tiklayınız**
+#### **Eğitilmiş model dosyası için [Buraya](https://github.com/yasin624/yolov4_tabela_tanima/releases/tag/model_train) tiklayınız**
 
 </div>
